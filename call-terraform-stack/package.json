@@ -1,0 +1,14 @@
+{
+	"name": "hellofn",
+	"version": "1.0.0",
+	"description": "example function",
+	"main": "func.js",
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"@fnproject/fdk": ">=0.0.41",
+		"axios": "^0.27.2",
+		"oci-common": "^2.47.0",
+		"oci-sdk": "^2.43.0"
+	}
+}
