@@ -8,6 +8,9 @@ const STACK_ID = 'ocid1.ormstack.oc1.iad.amaaaaaa2ocwscaa5fdc5zjyeriepmxzcwvpohy
 fdk.handle(async function(input, context) {
 
     try {
+        await util.log('begin');
+
+        return { message: 'test' };
 
         //** create our resource principal provider and signer
         const provider = common.ResourcePrincipalAuthenticationDetailsProvider.builder();

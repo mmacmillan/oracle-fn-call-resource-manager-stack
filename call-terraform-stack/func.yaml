@@ -1,5 +1,5 @@
 schema_version: 20180708
 name: call-terraform-stack
-version: 0.0.43
+version: 0.0.44
 runtime: node
 entrypoint: node func.js
