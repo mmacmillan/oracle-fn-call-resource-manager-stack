@@ -8,9 +8,13 @@ const STACK_ID = 'ocid1.ormstack.oc1.iad.amaaaaaa2ocwscaa5fdc5zjyeriepmxzcwvpohy
 fdk.handle(async function(input, context) {
 
     try {
-        await util.log('begin');
+        let stackId;
 
-        return { message: 'test' };
+        //** grab the stack from the input if present
+        if(input && input.stack)
+            stackId = input.stack;
+
+        await util.log('begin, using stack:'+ stackId || 'none given');
 
         //** create our resource principal provider and signer
         const provider = common.ResourcePrincipalAuthenticationDetailsProvider.builder();
@@ -21,19 +25,25 @@ fdk.handle(async function(input, context) {
             authenticationDetailsProvider: provider
         });
 
+        util.log('getting list of stacks');
+
         //** get the stack we want to run
         const stacks = await client.listStacks({
             id: STACK_ID
         });
 
+        util.log('received');
+
         if(!stacks || stacks.items.length == 0)
             return error(context, 500, 'No stacks retrieved');
+
+        util.log(stacks.items);
 
         //** create a job for running the stack
         const res = await client.createJob({ 
             createJobDetails: {
                 applyJobPlanResolution: {},
-                stackId: STACK_ID,
+                stackId: stackId || STACK_ID,
                 operation: 'PLAN'
             }
         });
